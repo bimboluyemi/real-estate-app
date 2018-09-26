@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+# Adding gitignore files from here on
+
+.DS_Store
+.idea/
