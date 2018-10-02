@@ -1,12 +1,93 @@
 
-body{
-
+* {
+    box-sizing: border-box;
 }
 
-h1{
-    color: blueviolet;
+body {
+    margin: 0;
+    font-family: Helvetica;
+    background-image: url("/static/image/pat3.jpeg");
+}
+
+h1, h2{
+    font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
 }
 
 p{
-    color: aqua;
+
+}
+
+footer{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.main {
+	border:2px solid black;
+	padding:35px 100px 45px 100px;
+    min-height: 600px;
+
+}
+/* Style the header */
+.header {
+    background-color: #FA8072;
+    padding: 20px;
+    /*text-align: center;*/
+}
+
+/* Style the top navigation bar */
+.nav {
+    overflow: hidden;
+}
+
+/* Style the topnav links */
+.nav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change color on hover */
+.nav a:hover {
+    background-color: #FFE4E1;
+    color: black;
+}
+
+
+.mySlides {display:none}
+.w3-left, .w3-right, .w3-badge {cursor:pointer}
+.w3-badge {height:13px;width:13px;padding:0}
+
+#about-us{
+    font-family: Chalkboard;
+    font-size: 20px;
+}
+
+#group-logo{
+    color: lightcyan;
+    font-family: "Arial";
+}
+
+#group-logo img{
+    height: 50px;
+    width: 50px;
+    padding: 0px;
+    float: left;
+}
+
+#group-logo h1{
+    padding: 5px;
+    margin-left: 65px;
+}
+
+.recent{
+
+}
+
+.recent img{
+    width: 600px;
+    height: 400px;
 }

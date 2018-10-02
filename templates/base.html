@@ -8,10 +8,35 @@
 </head>
 <body>
 
-    <h1>Welcome to our Page!</h1>
+    <!-- navigation -->
+    <div class="header">
+        <div id="group-logo">
+            <img src="{% static 'image/hlogo.png' %}">
+            <h1>S1 G7 2018</h1>
+        </div>
+
+      <div class="nav">
+      <a href="/">Home</a>
+      <a href="{% url 'search' %}">Search Property</a>
+      <a href="{% url 'advertise' %}">Advertise Property</a>
+      <a href="{% url 'signin' %}">Sign In / Register</a>
+      <a href="{% url 'contact' %}">Contact Us</a>
+      <a href="{% url 'about' %}">About Us</a>
+
+    </div>
+
+    </div>
+
+    <div class = "main">
 
     {% block content %}
     {% endblock %}
+
+    </div>
+
+    <footer>
+        Copyright 2018 S1_G7_Fall.  All Rights Reserved.
+    </footer>
 
 </body>
 </html>
