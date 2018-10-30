@@ -91,3 +91,8 @@ footer{
     width: 600px;
     height: 400px;
 }
+
+.admin-link{
+    float: right !important;
+    border: 1px solid black;
+}

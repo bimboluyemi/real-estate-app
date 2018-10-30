@@ -21,5 +21,6 @@ from real_estate_app import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('myapp/', include('myapp.urls')),
+    path('', include('myapp.urls.pages')),
+    path('system-admin/', include('myapp.urls.system_admin')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

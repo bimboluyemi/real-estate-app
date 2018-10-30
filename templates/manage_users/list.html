@@ -1,0 +1,50 @@
+{% extends '_adminLayout.html' %}
+
+{% block content %}
+
+    <div class="columns">
+        <div class="column is-three-quarters">
+            <p class="subtitle">
+                List of all users
+            </p>
+        </div>
+        <div class="column">
+            <a class="button is-primary" href="{% url 'system-admin:create-user' %}">
+                Add User
+            </a>
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column is-full">
+            <table class="table is-fullwidth">
+                <thead>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.firstName | add:" " | add:user.lastName }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>roles...</td>
+                            <td>
+                                <a class="button is-warning" href="{% url 'system-admin:edit-user' user.id %}">Edit</a>
+                                <a class="button is-primary">Assign Role</a>
+                                <a class="button is-link">Enable</a>
+                                <a class="button is-danger">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

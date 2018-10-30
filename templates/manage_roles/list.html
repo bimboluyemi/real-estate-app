@@ -1,0 +1,46 @@
+{% extends '_adminLayout.html' %}
+
+{% block content %}
+
+    <div class="columns">
+        <div class="column is-three-quarters">
+            <p class="subtitle">
+                List of all roles
+            </p>
+        </div>
+        <div class="column">
+            <a class="button is-primary" href="{% url 'system-admin:create-role' %}">
+                Add Role
+            </a>
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column is-full">
+            <table class="table is-fullwidth">
+                <thead>
+                    <th>Name</th>
+                    <th>Permissions</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    {% for role in roles %}
+                        <tr>
+                            <td>{{ role.name }}</td>
+                            <td>Permissions...</td>
+                            <td>
+                                <a class="button is-primary">Manage Permissions</a>
+                                <a class="button is-danger">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
