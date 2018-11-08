@@ -4,11 +4,8 @@ from myapp.views import pages
 
 app_name = 'myapp'
 urlpatterns = [
-    path('', pages.home, name='home'),
-    path('search/', pages.search, name='search'),
-    path('advertise/', pages.advertise, name='advertise'),
-    path('signin/', pages.signin, name='signin'),
-    path('contact/', pages.contact, name='contact'),
-    path('about/', pages.about, name='about'),
-    path('detail/', pages.detail, name='detail'),
+    path('', pages.HomePageView.as_view(extra_context={'title': 'Home'}), name='home'),
+    path('contact/', pages.ContactPageView.as_view(extra_context={'title': 'Contact Us'}), name='contact'),
+    path('about/', pages.AboutPageView.as_view(extra_context={'title': 'About Us'}), name='about'),
+    path('detail/', pages.DetailPageView.as_view(), name='detail'),
 ]

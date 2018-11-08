@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }} S1G72018</title>
+    <link rel="shortcut icon" href="{% static 'image/icon.png' %}" type="image/x-icon">
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css'>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- Start Nav -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                        <img src="{% static 'image/logo_img.png' %}" alt="Logo">
+                    </a>
+                <span class="navbar-burger burger" data-target="navbarMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+                </span>
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <a class="navbar-item is-active" href="{% url 'myapp:home' %}">
+                        Home
+                    </a>
+                    <a class="navbar-item" href="{% url 'myapp:contact' %}">
+                        Contact
+                    </a>
+                    <a class="navbar-item" href="{% url 'myapp:about' %}">
+                        About
+                    </a>
+                    <a class="navbar-item">
+                        Admin Portal
+                    </a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            My Account
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item">
+                                My Profile
+                            </a>
+                            <hr class="navbar-divider">
+                            <div class="navbar-item">
+                                Logout
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- End Nav -->
+
+    <!-- Start content -->
+    <div class="container page-container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!-- End content -->
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+              <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+              <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+              is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -2,45 +2,44 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from ..models import User
 from ..forms.access_control_forms import UserForm
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 
 
-def all_users(request):
-    data = {
-        'title': 'Manage Users',
-        'users': User.objects.all()
-    }
-    return render(request, 'manage_users/list.html', data)
+class UserList(ListView):
+    model = User
+    template_name = 'manage_users/list.html'
+    context_object_name = 'users'
 
 
-def user(request, user_id=None):
-    u = User()
-    if user_id is not None:
-        u = get_object_or_404(User, id=user_id)
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = UserForm(request.POST, instance=u)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            form.save()
-            # redirect to a new URL:
-            return HttpResponseRedirect('/system-admin/users')
+class UserCreate(CreateView):
+    model = User
+    form_class = UserForm
+    template_name = 'manage_users/user.html'
+    success_url = '/system-admin/users'
 
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = UserForm(instance=u)
 
-    data = {
-        'title': 'Create New User',
-        'form': form
-    }
-    return render(request, 'manage_users/user.html', data)
+class UserUpdate(UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = 'manage_users/user.html'
+    success_url = '/system-admin/users'
+
+
+class UserDelete(DeleteView):
+    model = User
+    template_name = 'manage_users/delete.html'
+    success_url = '/system-admin/users'
+
+
+class UserEnable(FormView):
+    template_name = 'manage_users/enable.html'
+
+    # def get_initial(self):
 
 
 def assign_role(request, user_id):
+
     return render(request, 'manage_users/assign_role.html')
 
 
-def delete_user(request, user_id):
-    return 200

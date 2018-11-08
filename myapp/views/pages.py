@@ -1,31 +1,20 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 # Create your views here.
 
 
-def home(request):
-    return render(request, 'home.html')
+class HomePageView(TemplateView):
+    template_name = "pages/home.html"
 
 
-def detail(request):
-    return render(request, 'detail.html')
+class ContactPageView(TemplateView):
+    template_name = "pages/contact.html"
 
 
-def search(request):
-    return render(request, 'search.html')
+class AboutPageView(TemplateView):
+    template_name = "pages/about.html"
 
 
-def advertise(request):
-    return render(request, 'advertise.html')
-
-
-def signin(request):
-    return render(request, 'signin.html')
-
-
-def contact(request):
-    return render(request, 'contact.html')
-
-
-def about(request):
-    return render(request, 'about.html')
+class DetailPageView(TemplateView):
+    template_name = "pages/detail.html"

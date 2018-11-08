@@ -9,6 +9,9 @@ class User(models.Model):
     def __str__(self):
         return ' '.join([self.firstName, self.lastName])
 
+    def roles(self):
+        return ', '.join([str(a) for a in self.role_set.all()])
+
 
 class Password(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
