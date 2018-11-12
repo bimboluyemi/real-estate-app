@@ -133,3 +133,11 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = 'media'
+
+FIXTURE_DIRS = [
+    ''
+]
+
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/'
+

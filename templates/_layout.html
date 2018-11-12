@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ title }} S1G72018</title>
+    <title>{{ title | default:'S1G72018'}} </title>
     <link rel="shortcut icon" href="{% static 'image/icon.png' %}" type="image/x-icon">
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css'>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -26,7 +26,7 @@
             </div>
             <div id="navbarMenu" class="navbar-menu">
                 <div class="navbar-end">
-                    <a class="navbar-item is-active" href="{% url 'myapp:home' %}">
+                    <a class="navbar-item" href="{% url 'myapp:home' %}">
                         Home
                     </a>
                     <a class="navbar-item" href="{% url 'myapp:contact' %}">
@@ -35,23 +35,30 @@
                     <a class="navbar-item" href="{% url 'myapp:about' %}">
                         About
                     </a>
-                    <a class="navbar-item">
+                    <a class="navbar-item" href="{% url 'myapp:dashboard' %}">
                         Admin Portal
                     </a>
+                    {% if user.is_authenticated %}
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
-                            My Account
+                            {{ user.username }}
                         </a>
                         <div class="navbar-dropdown">
                             <a class="navbar-item">
                                 My Profile
                             </a>
                             <hr class="navbar-divider">
-                            <div class="navbar-item">
+                            <a class="navbar-item" href="/logout">
                                 Logout
-                            </div>
+                            </a>
                         </div>
                     </div>
+                    {% else %}
+                    <a class="navbar-item" href="/login">
+                        Login
+                    </a>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
@@ -68,9 +75,7 @@
     <footer class="footer">
         <div class="content has-text-centered">
             <p>
-              <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-              <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-              is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+              Section One Group Seven Fall 2018.
             </p>
         </div>
     </footer>

@@ -1,26 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
-class User(models.Model):
-    firstName = models.CharField(max_length=25)
-    lastName = models.CharField(max_length=25)
-    email = models.EmailField(max_length=75)
-
-    def __str__(self):
-        return ' '.join([self.firstName, self.lastName])
-
-    def roles(self):
-        return ', '.join([str(a) for a in self.role_set.all()])
-
-
-class Password(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    username = models.CharField(max_length=25)
-    encryptedPassword = models.CharField(max_length=255)
-    salt = models.CharField(max_length=255)
-    userAccountExpiryDate = models.DateField()
-    passwordMustChange = models.BooleanField()
-    passwordReset = models.BooleanField()
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    account_expiry_date = models.DateField()
 
 
 class Role(models.Model):
@@ -41,16 +25,12 @@ class UserRole(models.Model):
 
 
 class Permission(models.Model):
-    SYSTEM_FEATURES = (
-        ('UM', 'User Management'),
-        ('RM', 'Role Management'),
-        ('FM', 'Feature Management')
-    )
-    sysFeature = models.CharField(max_length=75, choices=SYSTEM_FEATURES)
+    code = models.CharField(max_length=10)
+    sysFeature = models.CharField(max_length=75)
     roles = models.ManyToManyField(Role, through='RolePermission')
 
     def __str__(self):
-        return self.sysFeature.__str__()
+        return ' - '.join(self.code, self.sysFeature)
 
 
 class RolePermission(models.Model):

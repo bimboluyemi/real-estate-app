@@ -2,6 +2,7 @@ from django.urls import path
 
 from myapp.views import manage_users, manage_features, manage_roles
 from myapp.views.manage_users import UserList, UserCreate, UserUpdate, UserDelete
+from myapp.views.account import DashboardView
 
 app_name = 'system-admin'
 urlpatterns = [

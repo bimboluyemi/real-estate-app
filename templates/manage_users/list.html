@@ -2,7 +2,7 @@
 
 
 
-{% block content %}
+{% block admin-content %}
 
     <div class="columns">
         <div class="column is-three-quarters">
@@ -29,7 +29,7 @@
                 <tbody>
                     {% for user in users %}
                         <tr>
-                            <td>{{ user.firstName | add:" " | add:user.lastName }}</td>
+                            <td>{{ user.first_name | add:" " | add:user.last_name }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.roles }}</td>
                             <td>

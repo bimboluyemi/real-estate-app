@@ -10,6 +10,7 @@ class UserList(ListView):
     model = User
     template_name = 'manage_users/list.html'
     context_object_name = 'users'
+    queryset = User.objects.filter(is_staff=False)
 
 
 class UserCreate(CreateView):

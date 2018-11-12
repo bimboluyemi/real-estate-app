@@ -1,56 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ title | default:'Administrator' }}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-</head>
-<body>
-<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-    </a>
+{% extends '_layout.html' %}
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
+{% block content %}
+<div class="section">
 
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="{% url 'system-admin:users' %}">
-        Manage Users
-      </a>
+    <div class="columns">
 
-      <a class="navbar-item" href="{% url 'system-admin:roles' %}">
-        Manage Roles
-      </a>
+        <div class="column is-3">
+            <aside class="menu">
+                <p class="menu-label">
+                    General
+                </p>
+                <ul class="menu-list">
+                    <li><a>Dashboard</a></li>
+                </ul>
+                <p class="menu-label">
+                    Administration
+                </p>
+                <ul class="menu-list">
+                    <li><a>User Accounts</a></li>
+                    <li><a>System Roles</a></li>
+                    <li><a>System Features/Privileges</a></li>
+                </ul>
+            </aside>
+        </div>
 
-      <a class="navbar-item" href="{% url 'system-admin:features' %}">
-        Manage Features
-      </a>
+        <div class="column is-9">
+            {% block admin-content %}
+            {% endblock %}
+        </div>
 
     </div>
 
+</div>
 
-  </div>
-</nav>
-
-    <section class="section">
-        <div class="container">
-            <h1 class="title">
-                {{ title | default:'Administrator' }}
-            </h1>
-            {% block content %}
-
-
-            {% endblock %}
-        </div>
-    </section>
-</body>
-</html>
+{% endblock %}
