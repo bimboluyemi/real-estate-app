@@ -19,21 +19,22 @@
         <div class="column is-full">
             <table class="table is-fullwidth">
                 <thead>
-                    <th>Name</th>
-                    <th>Permissions</th>
-                    <th></th>
+                <th>Name</th>
+                <th>Permissions</th>
+                <th></th>
                 </thead>
                 <tbody>
-                    {% for role in roles %}
-                        <tr>
-                            <td>{{ role.name }}</td>
-                            <td>Permissions...</td>
-                            <td>
-                                <a class="button is-primary">Manage Permissions</a>
-                                <a class="button is-danger">Delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+                {% for role in roles %}
+                    <tr>
+                        <td>{{ role.name }}</td>
+                        <td>Permissions...</td>
+                        <td>
+                            <a class="button is-primary" href="{% url 'system-admin:permissions' role.id %}">Manage
+                                Permissions</a>
+                            <a class="button is-danger" href="{% url 'system-admin:delete-role' role.id %}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>

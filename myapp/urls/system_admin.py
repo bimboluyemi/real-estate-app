@@ -2,6 +2,7 @@ from django.urls import path
 
 from myapp.views import manage_users, manage_features, manage_roles
 from myapp.views.manage_users import UserList, UserCreate, UserUpdate, UserDelete
+from myapp.views.manage_roles import RoleDelete
 from myapp.views.account import DashboardView
 
 app_name = 'system-admin'
@@ -14,7 +15,8 @@ urlpatterns = [
     path('roles/', manage_roles.all_roles, name='roles'),
     path('roles/new/', manage_roles.role, name='create-role'),
     path('roles/<int:role_id>/permissions/', manage_roles.role, name='permissions'),
-    path('roles/<int:role_id>/delete-role/', manage_roles.delete_role, name='delete-role'),
+    path('roles/<int:pk>/delete-role/', RoleDelete.as_view(extra_context={'title': 'Delete Role'}),
+         name='delete-role'),
     path('system-features/', manage_features.all_features, name='features'),
     path('system-features/new/', manage_features.feature, name='create-feature'),
     path('system-features/<int:feature_id>/delete/', manage_features.delete_feature, name='delete-feature'),
