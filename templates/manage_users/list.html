@@ -23,15 +23,19 @@
                 <thead>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Username</th>
                     <th>Roles</th>
+                    <th>Account Expiry</th>
                     <th></th>
                 </thead>
                 <tbody>
                     {% for user in users %}
                         <tr>
-                            <td>{{ user.first_name | add:" " | add:user.last_name }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.roles }}</td>
+                            <td>{{ user.user.first_name | add:" " | add:user.user.last_name }}</td>
+                            <td>{{ user.user.email }}</td>
+                            <td>{{ user.user.username }}</td>
+                            <td>{{ user.user.roles }}</td>
+                            <td>{{ user.account_expiry_date }}</td>
                             <td>
                                 <a class="button is-warning" href="{% url 'system-admin:edit-user' user.id %}">Edit</a>
                                 <a class="button is-primary">Assign Role</a>

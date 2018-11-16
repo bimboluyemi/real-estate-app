@@ -16,7 +16,7 @@
 
             <form action="" method="post">
                 {% csrf_token %}
-                {{ form.non_field_errors }}
+                {{ form.errors }}
                 <div class="field is-horizontal">
                   <div class="field-label is-normal">
                     <label class="label">Full Name</label>
@@ -48,10 +48,35 @@
                   </div>
                 </div>
 
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                      <label class="label">Username</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                        <p class="control is-expanded">
+                        {{ form.username }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                      <label class="label">Account Expiry Date</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                        <p class="control is-expanded">
+                        {{ form.account_expiry_date }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="field is-grouped is-grouped-centered">
                   <p class="control">
-                    <input type="submit" value="Submit" class="button is-primary">
-                    </input>
+                    <input type="submit" value="Submit" class="button is-primary" />
                   </p>
                   <p class="control">
                     <a class="button is-light" href="{% url 'system-admin:users' %}">
