@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from ..models import UserProfile, User
-from ..forms.access_control_forms import UserForm
+from ..forms.access_control_forms import  UserCreateForm, UserUpdateForm
 from django.views.generic import ListView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 
@@ -15,23 +16,26 @@ class UserList(ListView):
 
 class UserCreate(CreateView):
     model = User
-    form_class = UserForm
+    form_class = UserCreateForm
     template_name = 'manage_users/user.html'
-    success_url = '/system-admin/users'
+    success_url = reverse_lazy('system-admin:users')
 
-    def form_valid(self, form):
-        m = form.save()
-        account_expiry = form.cleaned_data['account_expiry_date']
-        u = UserProfile(user=m, account_expiry_date=account_expiry)
-        u.save()
-        return HttpResponseRedirect(self.success_url)
+    def get_success_url(self):
+        return self.success_url
 
 
 class UserUpdate(UpdateView):
     model = User
-    form_class = UserForm
+    form_class = UserUpdateForm
     template_name = 'manage_users/user.html'
     success_url = '/system-admin/users'
+
+    def get_form(self, form_class=form_class):
+        form = super(UserUpdate, self).get_form(form_class)
+        username = form.instance.username
+        profile = UserProfile.objects.get(user__username=username)
+        form.fields['account_expiry_date'].initial = profile.account_expiry_date
+        return form
 
 
 class UserDelete(DeleteView):

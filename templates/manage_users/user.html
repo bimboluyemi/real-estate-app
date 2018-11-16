@@ -63,6 +63,23 @@
 
                 <div class="field is-horizontal">
                   <div class="field-label is-normal">
+                      <label class="label">Password</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                        <p class="control is-expanded">
+                            {% if form.password %}
+                                {{ form.password }}
+                            {% else %}
+                                <a class="button is-primary" href="#">Reset Password</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field is-horizontal">
+                  <div class="field-label is-normal">
                       <label class="label">Account Expiry Date</label>
                   </div>
                   <div class="field-body">

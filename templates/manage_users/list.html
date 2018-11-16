@@ -1,7 +1,5 @@
 {% extends '_adminLayout.html' %}
 
-
-
 {% block admin-content %}
 
     <div class="columns">
@@ -37,10 +35,10 @@
                             <td>{{ user.user.roles }}</td>
                             <td>{{ user.account_expiry_date }}</td>
                             <td>
-                                <a class="button is-warning" href="{% url 'system-admin:edit-user' user.id %}">Edit</a>
+                                <a class="button is-warning" href="{% url 'system-admin:edit-user' user.user.id %}">Edit</a>
                                 <a class="button is-primary">Assign Role</a>
                                 <a class="button is-link">Enable</a>
-                                <a class="button is-danger" href="{% url 'system-admin:delete-user' user.id %}">Delete</a>
+                                <a class="button is-danger" href="{% url 'system-admin:delete-user' user.user.id %}">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}
