@@ -22,6 +22,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Username</th>
+                    <th>Active</th>
                     <th>Roles</th>
                     <th>Account Expiry</th>
                     <th></th>
@@ -32,12 +33,24 @@
                             <td>{{ user.user.first_name | add:" " | add:user.user.last_name }}</td>
                             <td>{{ user.user.email }}</td>
                             <td>{{ user.user.username }}</td>
-                            <td>{{ user.user.roles }}</td>
+                            <td>{%  if user.user.is_active %}
+                                <span class="icon has-text-success">
+                                  <i class="fa fa-check-square"></i>
+                                </span>
+                                {% endif %}
+                            </td>
+                            <td>{{ user.roles }}</td>
                             <td>{{ user.account_expiry_date }}</td>
                             <td>
                                 <a class="button is-warning" href="{% url 'system-admin:edit-user' user.user.id %}">Edit</a>
-                                <a class="button is-primary">Assign Role</a>
-                                <a class="button is-link">Enable</a>
+                                <a class="button is-primary" href="{% url 'system-admin:assign-role' user.user.id %}">Assign Role</a>
+                                <a class="button is-light" href="{% url 'system-admin:enable-user' user.user.id %}">
+                                    {% if user.user.is_active %}
+                                    Disable
+                                    {% else %}
+                                    Enable
+                                    {% endif %}
+                                </a>
                                 <a class="button is-danger" href="{% url 'system-admin:delete-user' user.user.id %}">Delete</a>
                             </td>
                         </tr>

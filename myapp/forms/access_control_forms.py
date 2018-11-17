@@ -1,6 +1,8 @@
-from django.forms import ModelForm, TextInput, EmailInput, DateInput, DateField, PasswordInput, ValidationError
-from ..models import User, Role, Permission, UserProfile
-
+from django.forms import Form, ModelForm, TextInput, EmailInput, DateInput, DateField, PasswordInput, \
+    ModelMultipleChoiceField
+from django.forms.widgets import CheckboxSelectMultiple
+from ..models import User, Role, Permission, UserProfile, UserRole
+from django.utils.timezone import now
 
 class UserCreateForm(ModelForm):
     account_expiry_date = DateField(widget=DateInput(attrs={'class': 'input date-input'}), required=True)
@@ -69,6 +71,23 @@ class UserUpdateForm(ModelForm):
             profile.account_expiry_date = expiry
             profile.save()
         return user
+
+
+class AssignRoleForm(Form):
+    roles = ModelMultipleChoiceField(widget=CheckboxSelectMultiple(), queryset=Role.objects.all())
+
+    def save(self, user, selected_roles):
+        user_roles = UserRole.objects.filter(user=user)
+        for role in user_roles:
+            if role.role_id not in selected_roles:
+                role.delete()
+
+        for role_id in selected_roles:
+            if role_id not in [a.role_id for a in user_roles]:
+                ur = UserRole(user=user, role_id=role_id)
+                ur.save()
+
+
 
 
 class RoleForm(ModelForm):

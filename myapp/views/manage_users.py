@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from ..models import UserProfile, User
-from ..forms.access_control_forms import  UserCreateForm, UserUpdateForm
+from ..models import UserProfile, User, UserRole
+from ..forms.access_control_forms import UserCreateForm, UserUpdateForm, AssignRoleForm
 from django.views.generic import ListView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 
@@ -46,12 +46,37 @@ class UserDelete(DeleteView):
 
 class UserEnable(FormView):
     template_name = 'manage_users/enable.html'
+    success_url = '/system-admin/users'
 
-    # def get_initial(self):
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(pk=self.kwargs['pk'])
+        text = 'disable' if user.is_active else 'enable'
+        return render(request, self.template_name, {'user': user, 'text': text})
+
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(pk=self.kwargs['pk'])
+        user.is_active = not user.is_active
+        user.save()
+        return HttpResponseRedirect(self.success_url)
 
 
-def assign_role(request, user_id):
+class AssignRole(FormView):
+    template_name = 'manage_users/assign_role.html'
+    success_url = '/system-admin/users'
 
-    return render(request, 'manage_users/assign_role.html')
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(pk=self.kwargs['pk'])
+        user_roles = UserRole.objects.filter(user=user)
+        form = AssignRoleForm(initial={'roles': [a.role_id for a in user_roles]}) if any(user_roles) else AssignRoleForm()
+        return render(request, self.template_name, {'user': user, 'form': form})
+
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(pk=self.kwargs['pk'])
+        form = AssignRoleForm(request.POST)
+        selected_roles = request.POST.getlist('roles')
+        form.save(user, selected_roles)
+        return HttpResponseRedirect(self.success_url)
+
+
 
 

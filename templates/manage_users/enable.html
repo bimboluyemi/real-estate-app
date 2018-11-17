@@ -1,11 +1,11 @@
 {% extends '_adminLayout.html' %}
 
-{% block content %}
+{% block admin-content %}
 
     <div class="columns">
         <div class="column is-three-quarters">
             <p class="subtitle">
-                Are you sure you want to enable this user?
+                Are you sure you want to {{ text }} this user?
             </p>
         </div>
     </div>
@@ -14,14 +14,14 @@
 
         <div class="column is-three-quarters">
             <p>
-                You are about to enable {{ object }}.
+                You are about to {{ text }} {{ user.first_name | add:" " | add:user.last_name }}.
             </p>
             <form action="" method="post">
                 {% csrf_token %}
+                <input type="hidden" value="{{ userid }}">
                 <div class="field is-grouped is-grouped-centered">
                   <p class="control">
-                    <input type="submit" value="Enable" class="button is-danger">
-                    </input>
+                    <input type="submit" value="{{ text | capfirst }}" class="button is-danger">
                   </p>
                   <p class="control">
                     <a class="button is-light" href="{% url 'system-admin:users' %}">

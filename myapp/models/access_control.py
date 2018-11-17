@@ -6,6 +6,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     account_expiry_date = models.DateField()
 
+    def roles(self):
+        return ', '.join([a.name for a in self.user.role_set.all()])
+
 
 class Role(models.Model):
     name = models.CharField(max_length=55)
@@ -18,7 +21,7 @@ class Role(models.Model):
 class UserRole(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
-    date_assigned = models.DateField()
+    date_assigned = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return ' | '.join([self.user.__str__(), self.role.__str__(), self.date_assigned.__str__()])
