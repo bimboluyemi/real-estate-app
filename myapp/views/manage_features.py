@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from ..models import Permission
 from ..forms.access_control_forms import FeatureForm
+from django.views.generic import DeleteView
 
 
 def all_features(request):
@@ -23,5 +24,7 @@ def feature(request):
                    'form': form})
 
 
-def delete_feature(request):
-    return 200
+class FeatureDelete(DeleteView):
+    model = Permission
+    template_name = 'manage_features/delete.html'
+    success_url = '/system-admin/features'

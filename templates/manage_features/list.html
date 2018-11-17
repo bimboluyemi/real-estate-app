@@ -25,9 +25,9 @@
                 <tbody>
                     {% for feature in features %}
                         <tr>
-                            <td>{{ feature.get_sysFeature_display }}</td>
+                            <td>{{ feature.sysFeature }}</td>
                             <td>
-                                <a class="button is-danger">Delete</a>
+                                <a class="button is-danger" href="{% url 'system-admin:delete-feature' feature.id %}">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}

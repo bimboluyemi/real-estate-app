@@ -27,7 +27,7 @@
                 {% for role in roles %}
                     <tr>
                         <td>{{ role.name }}</td>
-                        <td>Permissions...</td>
+                        <td>{{ role.permissions }}</td>
                         <td>
                             <a class="button is-primary" href="{% url 'system-admin:permissions' role.id %}">Manage
                                 Permissions</a>

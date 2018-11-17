@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from ..models import Role
-from ..forms.access_control_forms import RoleForm
+from ..models import Role, RolePermission
+from django.http import HttpResponseRedirect
+from ..forms.access_control_forms import RoleForm, ManagePermissionForm
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 
@@ -11,10 +12,7 @@ def all_roles(request):
                    'roles': Role.objects.all()})
 
 
-def role(request, role_id=None):
-    r = Role()
-    if role_id is not None:
-        r = get_object_or_404(Role, id=role_id)
+def role(request):
     if request.method == 'POST':
         form = RoleForm(request.POST, instance=r)
         if form.is_valid():
@@ -27,8 +25,23 @@ def role(request, role_id=None):
                    'form': form})
 
 
-def delete_role(request):
-    return 200
+class ManagePermission(FormView):
+    template_name = 'manage_roles/manage_permission.html'
+    success_url = '/system-admin/roles'
+
+    def get(self, request, *args, **kwargs):
+        role = Role.objects.get(pk=self.kwargs['pk'])
+        role_permissions = RolePermission.objects.filter(role=role)
+        form = ManagePermissionForm(initial={'features': [a.permission_id for a in role_permissions]}) \
+            if any(role_permissions) else ManagePermissionForm()
+        return render(request, self.template_name, {'role': role, 'form': form})
+
+    def post(self, request, *args, **kwargs):
+        role = Role.objects.get(pk=self.kwargs['pk'])
+        form = ManagePermissionForm(request.POST)
+        selected_features = request.POST.getlist('features')
+        form.save(role, selected_features)
+        return HttpResponseRedirect(self.success_url)
 
 
 class RoleDelete(DeleteView):

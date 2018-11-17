@@ -1,7 +1,7 @@
 from django.forms import Form, ModelForm, TextInput, EmailInput, DateInput, DateField, PasswordInput, \
     ModelMultipleChoiceField
 from django.forms.widgets import CheckboxSelectMultiple
-from ..models import User, Role, Permission, UserProfile, UserRole
+from ..models import User, Role, Permission, UserProfile, UserRole, RolePermission
 from django.utils.timezone import now
 
 class UserCreateForm(ModelForm):
@@ -88,6 +88,19 @@ class AssignRoleForm(Form):
                 ur.save()
 
 
+class ManagePermissionForm(Form):
+    features = ModelMultipleChoiceField(widget=CheckboxSelectMultiple(), queryset=Permission.objects.all())
+
+    def save(self, role, selected_features):
+        role_permissions = RolePermission.objects.filter(role=role)
+        for permission in role_permissions:
+            if permission.permission_id not in selected_features:
+                permission.delete()
+
+        for permission_id in selected_features:
+            if permission_id not in [a.permission_id for a in role_permissions]:
+                ur = RolePermission(role=role, permission_id=permission_id)
+                ur.save()
 
 
 class RoleForm(ModelForm):

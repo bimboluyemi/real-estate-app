@@ -17,6 +17,9 @@ class Role(models.Model):
     def __str__(self):
         return self.name
 
+    def permissions(self):
+        return ', '.join([a.sysFeature for a in self.permission_set.all()])
+
 
 class UserRole(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -33,7 +36,7 @@ class Permission(models.Model):
     roles = models.ManyToManyField(Role, through='RolePermission')
 
     def __str__(self):
-        return ' - '.join(self.code, self.sysFeature)
+        return self.sysFeature
 
 
 class RolePermission(models.Model):
