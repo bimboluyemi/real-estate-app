@@ -1,0 +1,36 @@
+{% extends '_layout.html' %}
+
+{% block content %}
+<div class="section">
+
+    <div class="columns">
+
+        <div class="column is-3">
+            <aside class="menu">
+                <p class="menu-label">
+                    General
+                </p>
+                <ul class="menu-list">
+                    <li><a href="{% url 'myapp:dashboard' %}">Dashboard</a></li>
+                </ul>
+                <p class="menu-label">
+                    Administration
+                </p>
+                <ul class="menu-list">
+                    <li><a href="{% url 'system-admin:users' %}">User Accounts</a></li>
+                    <li><a href="{% url 'system-admin:roles' %}">System Roles</a></li>
+                    <li><a href="{% url 'system-admin:features' %}">System Features/Privileges</a></li>
+                </ul>
+            </aside>
+        </div>
+
+        <div class="column is-9">
+            {% block admin-content %}
+            {% endblock %}
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,12 +1,14 @@
 
-body{
-
+body {
+    /*background-image: url("/static/image/pat3.jpeg");*/
+    background: #ECF0F3;
 }
 
-h1{
-    color: blueviolet;
+.page-container{
+    min-height: 700px;
 }
 
-p{
-    color: aqua;
+.footer{
+    background-color: #222831;
+    color: lemonchiffon;
 }

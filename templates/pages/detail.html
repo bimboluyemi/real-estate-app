@@ -1,0 +1,44 @@
+{% extends '_layout.html' %}
+{% load static %}
+
+{% block content %}
+
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+              <a href="{% url 'myapp:home' %}"><i class="fa fa-chevron-circle-left"></i> Go back to listing </a>
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <div class="section">
+
+        <div class="container has-text-centered">
+            <div class="columns is-vcentered">
+                <div class="column is-5">
+                    <figure class="image is-4by3">
+                        <img src="{% static 'image/house1.jpg' %}" alt="Description">
+                    </figure>
+                </div>
+                <div class="column is-6 is-offset-1">
+                    <h1 class="title is-2">
+                        Property Information
+                    </h1>
+                    <h2 class="subtitle is-4">
+                        Let this page describe a property and its features.
+                    </h2>
+                    <br>
+                    <p class="has-text-centered">
+                        <a class="button is-medium is-info is-outlined">
+                            Read more
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
